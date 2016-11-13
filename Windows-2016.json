@@ -28,7 +28,7 @@
     "winrm_timeout": "5h",
 
     "shutdown_timeout": "30m",
-    "shutdown_command": "shutdown /s /t 10 /f /d p:4:1"
+    "shutdown_command": "A:/shutdown-packer.bat"
   },
 
   "builders": [
@@ -58,6 +58,8 @@
       "floppy_files": [
         "{{user `Autounattend_virtualbox`}}",
         "scripts/enable-WinRM.ps1",
+        "unattend.xml",
+        "scripts/shutdown-packer.bat",
         "oracle.cer"
       ],
 
@@ -102,7 +104,9 @@
 
       "floppy_files": [
         "{{user `Autounattend_vmware`}}",
-        "scripts/enable-WinRM.ps1"
+        "scripts/enable-WinRM.ps1",
+        "unattend.xml",
+        "scripts/shutdown-packer.bat"
       ],
 
       "iso_url": "{{user `iso_url`}}",
@@ -145,7 +149,9 @@
 
       "floppy_files": [
         "{{user `Autounattend_parallels`}}",
-        "scripts/enable-WinRM.ps1"
+        "scripts/enable-WinRM.ps1",
+        "unattend.xml",
+        "scripts/shutdown-packer.bat"
       ],
 
       "iso_url": "{{user `iso_url`}}",
@@ -171,7 +177,8 @@
       "type": "powershell",
       "scripts": [
         "scripts/install-GuestTools.ps1",
-        "scripts/postInstall.ps1"
+        "scripts/postInstall.ps1",
+        "scripts/postSetup.ps1"
       ]
     }
   ],
