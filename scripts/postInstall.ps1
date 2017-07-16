@@ -23,8 +23,10 @@ Set-ItemProperty -Path "registry::HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion
 Write-Host "Disabling hybernation..."
 Set-ItemProperty -Path "registry::HKLM\SYSTEM\CurrentControlSet\Control\Power" -Name "HibernateEnabled" -Value 0
 
-Write-Host "Setting Power plan to High performance..."
-powercfg -SETACTIVE 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+Write-Host "Disabling Screensaver"
+Set-ItemProperty "HKCU:\Control Panel\Desktop" -Name ScreenSaveActive -Value 0 -Type DWord
+& powercfg -x -monitor-timeout-ac 0
+& powercfg -x -monitor-timeout-dc 0
 
 Write-Host "Setting timezone..."
 & "$env:windir\system32\tzutil.exe" /s "FLE Standard Time"
